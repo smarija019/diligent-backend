@@ -21,7 +21,6 @@ namespace diligent_backend.Controllers
 
         [HttpGet]
         [Authorize]
-        //GET : /api/UserProfile
         public async Task<Object> GetUserProfile()
         {
             var userId = User.Claims.ToList().FirstOrDefault().Value;
@@ -38,7 +37,7 @@ namespace diligent_backend.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         [Route("ForAdmin")]
         public string GetForAdmin()
         {
@@ -46,7 +45,7 @@ namespace diligent_backend.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "customer")]
         [Route("ForCustomer")]
         public string GetCustomer()
         {
@@ -54,7 +53,7 @@ namespace diligent_backend.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "admin,customer")]
         [Route("ForAdminOrCustomer")]
         public string GetForAdminOrCustomer()
         {

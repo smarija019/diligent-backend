@@ -33,20 +33,19 @@ namespace diligent_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Inject AppSettings
 
             services.Configure<Models.ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
-
             services.AddControllers();
 
-            services.Add(new ServiceDescriptor(typeof(RegistrationModel), new RegistrationModel(Configuration.GetConnectionString("DefaultConnection"))));
-            
+            services.Add(new ServiceDescriptor(typeof(AdminModel), new AdminModel(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(LocationModel), new LocationModel(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(CompanyModel), new CompanyModel(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(ContactModel), new ContactModel(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(TypeModel), new TypeModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UserDbContext>();
-            services.AddDbContext<UserDbContext>(options =>
-     options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
-      b => b.MigrationsAssembly("diligent-backend")));
+            services.AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),b => b.MigrationsAssembly("diligent-backend")));
             //services.AddDbContext<UserDbContext>(opt => opt.UseInMemoryDatabase("user"));
             services.AddCors(options => options.AddPolicy("Cors", builder =>
             {
@@ -56,11 +55,7 @@ namespace diligent_backend
 
             }));
 
-
             //Jwt Authentication
-
-            
-
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -87,7 +82,6 @@ namespace diligent_backend
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-
             app.UseCors("Cors");
 
             if (env.IsDevelopment())
@@ -96,12 +90,9 @@ namespace diligent_backend
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-     
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

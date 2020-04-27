@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Amazon.Util.Internal.PlatformServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace diligent_backend.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
 
     public class UserApp
@@ -33,7 +33,6 @@ namespace diligent_backend.Controllers
     }
 
     [Produces("application/json")]
-    [Route("api/account")]
     public class AccountController : Controller
     {
         readonly UserManager<AppUser> userManager;
@@ -47,8 +46,9 @@ namespace diligent_backend.Controllers
             _appSettings = appSettings.Value;
         }
 
+        [Authorize(Roles = "admin")]
+        [Route("api/account/register")]
         [HttpPost]
-        [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserApp credentials)
         {
             var user = new AppUser { FirstName = credentials.FirstName, LastName = credentials.LastName, Email = credentials.Email, UserName = credentials.Email, Role = credentials.Role };
@@ -66,8 +66,8 @@ namespace diligent_backend.Controllers
         }
 
 
+        [Route("api/account/login")]
         [HttpPost]
-        [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             AppUser user = await userManager.FindByNameAsync(loginModel.Email);
@@ -96,6 +96,36 @@ namespace diligent_backend.Controllers
             { return BadRequest(new { message = "Username or password is incorrect." }); }
 
         }
+
+        [Authorize(Roles = "admin")]
+        [Route("api/account/users")]
+        [HttpGet]
+
+        public IQueryable<AppUser> ListAllUsers()
+        {
+            return this.userManager.Users;
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpDelete("api/account/users/{id}")]
+        public async Task<IActionResult> DeleteUserAsync(string id)
+        {
+            var user = await this.userManager.FindByIdAsync(id);
+            if(user == null)
+            {
+               return BadRequest(new { message = "User not found" });
+            }
+            else
+            {
+                var result = await this.userManager.DeleteAsync(user);
+                if(result.Succeeded)
+                {
+                    return Ok();
+                }
+                return Ok();
+            }
+        }
+
 
     }
 }

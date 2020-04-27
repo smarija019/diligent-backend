@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace diligent_backend.Models.Entities
 {
-    public class Location
+    public class Lawsuit
     {
-        public int Id { get; set; }
-
-        public string location { get; set; }
     }
 }

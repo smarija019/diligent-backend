@@ -20,7 +20,7 @@ namespace diligent_backend.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<Object> GetUserProfile()
         {
             var userId = User.Claims.ToList().FirstOrDefault().Value;
@@ -31,7 +31,8 @@ namespace diligent_backend.Controllers
                 user.FirstName,
                 user.LastName,
                 user.UserName,
-                user.Role
+                user.Role,
+  
             };
 
         }

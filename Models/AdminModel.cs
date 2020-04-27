@@ -27,7 +27,7 @@ namespace diligent_backend.Models
             {
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand("insert into locations (location) values (@name)", conn);
-                cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = location.LocationName;
+                cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = location.location;
                 var num = cmd.ExecuteNonQuery();
 
             }
@@ -45,7 +45,7 @@ namespace diligent_backend.Models
                 {
                     while (reader.Read())
                     {
-                        list.Add(new Location() { Id = Convert.ToInt32(reader["id"]), LocationName = Convert.ToString(reader["location"]) });
+                        list.Add(new Location() { Id = Convert.ToInt32(reader["id"]), location = Convert.ToString(reader["location"]) });
                     }
                 }
             }

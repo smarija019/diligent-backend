@@ -63,5 +63,18 @@ namespace diligent_backend.Models
             }
 
         }
+
+        public void UpdateCompany(int id, Company newCompany)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("update companies set name=@name, address=@address where id=@id", conn);
+            cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+            cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = newCompany.name;
+            cmd.Parameters.Add("@address", MySqlDbType.VarChar).Value = newCompany.address;
+            var num = cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

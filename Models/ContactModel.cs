@@ -10,6 +10,7 @@ namespace diligent_backend.Models
     public class ContactModel
     {
         public string ConnectionString { get; set; }
+        public MySqlConnection conn { get; set; }
         public ContactModel(string connectionString)
         {
             this.ConnectionString = connectionString;
@@ -33,7 +34,6 @@ namespace diligent_backend.Models
                 cmd.Parameters.Add("@profession", MySqlDbType.Int32).Value = contact.profession;
                 cmd.Parameters.Add("@company", MySqlDbType.VarChar).Value = contact.company;
                 var num = cmd.ExecuteNonQuery();
-
             }
         }
         public List<Contact> GetContacts()
@@ -64,10 +64,26 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("delete from contacts where id=@id", conn);
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 var num = cmd.ExecuteNonQuery();
-
-
             }
 
+        }
+        public void UpdateContact(int id, Contact newContact)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("update contacts set name=@name, tel1=@tel1, tel2=@tel2, address=@address, email=@email, flag=@flag, profession=@profession, company=@company where id=@id", conn);
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = newContact.name;
+                cmd.Parameters.Add("@tel1", MySqlDbType.VarChar).Value = newContact.tel1;
+                cmd.Parameters.Add("@tel2", MySqlDbType.Int32).Value = newContact.tel2;
+                cmd.Parameters.Add("@address", MySqlDbType.VarChar).Value = newContact.address;
+                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = newContact.email;
+                cmd.Parameters.Add("@flag", MySqlDbType.VarChar).Value = newContact.flag;
+                cmd.Parameters.Add("@profession", MySqlDbType.Int32).Value = newContact.profession;
+                cmd.Parameters.Add("@company", MySqlDbType.VarChar).Value = newContact.company;
+                var num = cmd.ExecuteNonQuery();
+            }
         }
 
 

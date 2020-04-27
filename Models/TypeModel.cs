@@ -26,7 +26,6 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("insert into types (type) values (@type)", conn);
                 cmd.Parameters.Add("@type", MySqlDbType.VarChar).Value = type.type;
                 var num = cmd.ExecuteNonQuery();
-
             }
         }
         public List<CustomType> GetTypes()
@@ -57,10 +56,18 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("delete from types where id=@id", conn);
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 var num = cmd.ExecuteNonQuery();
-
-
             }
-
+        }
+        public void UpdateType(int id, CustomType newType)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("update types set type=@type where id=@id", conn);
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                cmd.Parameters.Add("@type", MySqlDbType.VarChar).Value = newType.type;
+                var num = cmd.ExecuteNonQuery();
+            }
         }
     }
 }

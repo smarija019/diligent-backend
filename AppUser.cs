@@ -13,6 +13,5 @@ namespace diligent_backend
         public string LastName { get; set; }
 
 
-
     }
 }

@@ -23,7 +23,7 @@ namespace diligent_backend.Controllers
         [Authorize(Roles = "admin")]
         [Route("api/contact")]
         [HttpGet]
-        public IEnumerable<Contact> GetContacts()
+        public IEnumerable<ContactForGet> GetContacts()
         {
             return this.context.GetContacts().ToArray();
         }

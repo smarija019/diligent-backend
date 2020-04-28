@@ -36,20 +36,19 @@ namespace diligent_backend.Models
                 var num = cmd.ExecuteNonQuery();
             }
         }
-        public List<Contact> GetContacts()
+        public List<ContactForGet> GetContacts()
 
         {
-            List<Contact> list = new List<Contact>();
+            List<ContactForGet> list = new List<ContactForGet>();
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from contacts", conn);
-
+                MySqlCommand cmd = new MySqlCommand("select *, companies.name as companyOfUser from contacts inner join companies on contacts.company = companies.id", conn);
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        list.Add(new Contact() { Id = Convert.ToInt32(reader["id"]), name = Convert.ToString(reader["name"]), tel1 = Convert.ToString(reader["tel1"]), tel2 = Convert.ToString(reader["tel2"]), address = Convert.ToString(reader["address"]), email = Convert.ToString(reader["email"]), flag = Convert.ToInt32(reader["flag"]), profession = Convert.ToString(reader["profession"]), company = Convert.ToInt32(reader["company"]) });
+                        list.Add(new ContactForGet() { Id = Convert.ToInt32(reader["id"]), name = Convert.ToString(reader["name"]), tel1 = Convert.ToString(reader["tel1"]), tel2 = Convert.ToString(reader["tel2"]), address = Convert.ToString(reader["address"]), email = Convert.ToString(reader["email"]), flag = Convert.ToInt32(reader["flag"]), profession = Convert.ToString(reader["profession"]), company = Convert.ToString(reader["companyOfUser"]) });
                     }
                 }
             }

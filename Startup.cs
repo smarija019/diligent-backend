@@ -42,6 +42,7 @@ namespace diligent_backend
             services.Add(new ServiceDescriptor(typeof(CompanyModel), new CompanyModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(ContactModel), new ContactModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(TypeModel), new TypeModel(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(LawsuitModel), new LawsuitModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UserDbContext>();

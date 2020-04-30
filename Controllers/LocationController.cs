@@ -15,7 +15,6 @@ namespace diligent_backend.Controllers
     {
 
         readonly LocationModel context;
-
         public LocationController(LocationModel context)
         {
             this.context = context;

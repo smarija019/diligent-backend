@@ -26,7 +26,6 @@ namespace diligent_backend.Controllers
         {
             var userId = User.Claims.ToList().FirstOrDefault().Value;
             AppUser user = await _userManager.FindByIdAsync(userId);
-
             return new
             {
                 userId,
@@ -34,7 +33,6 @@ namespace diligent_backend.Controllers
                 user.LastName,
                 user.UserName,
                 user.Role,
-  
             };
 
         }

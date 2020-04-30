@@ -15,7 +15,6 @@ namespace diligent_backend.Controllers
     public class TypeController : ControllerBase
     {
         readonly TypeModel context;
-
         public TypeController(TypeModel context)
         {
             this.context = context;

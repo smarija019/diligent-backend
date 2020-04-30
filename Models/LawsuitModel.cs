@@ -1,4 +1,5 @@
-﻿using diligent_backend.Models.Entities;
+﻿using diligent_backend.Helpers;
+using diligent_backend.Models.Entities;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;

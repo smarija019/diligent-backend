@@ -38,7 +38,6 @@ namespace diligent_backend
             services.Configure<Models.ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
             services.AddControllers();
 
-            services.Add(new ServiceDescriptor(typeof(AdminModel), new AdminModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(LocationModel), new LocationModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(CompanyModel), new CompanyModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(ContactModel), new ContactModel(Configuration.GetConnectionString("DefaultConnection"))));
@@ -49,7 +48,6 @@ namespace diligent_backend
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UserDbContext>();
             services.AddDbContext<UserDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),b => b.MigrationsAssembly("diligent-backend")));
-            //services.AddDbContext<UserDbContext>(opt => opt.UseInMemoryDatabase("user"));
             services.AddCors(options => options.AddPolicy("Cors", builder =>
             {
                 builder.AllowAnyOrigin()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using diligent_backend.Helpers;
 using diligent_backend.Models;
 using diligent_backend.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,6 @@ namespace diligent_backend.Controllers
     public class ContactController : ControllerBase
     {
         readonly ContactModel context;
-
         public ContactController(ContactModel context)
         {
             this.context = context;

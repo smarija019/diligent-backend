@@ -8,7 +8,6 @@ namespace diligent_backend.Models.Entities
     public class Contact
     {
         public int Id { get; set; }
-
         public string name { get; set; }
         public string tel1 { get; set; }
         public string tel2 { get; set; }

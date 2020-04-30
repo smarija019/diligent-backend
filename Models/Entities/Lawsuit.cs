@@ -8,7 +8,6 @@ namespace diligent_backend.Models.Entities
     public class Lawsuit
     {
         public int Id { get; set; }
-
         public DateTime date { get; set; }
         public int location { get; set; }
         public int judge { get; set; }
@@ -18,7 +17,6 @@ namespace diligent_backend.Models.Entities
         public int plaintiff { get; set; }
         public int defendant { get; set; }
         public string note{ get; set; }
-
         public int procedure_type { get; set; }
     }
 }

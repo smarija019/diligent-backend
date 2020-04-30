@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace diligent_backend.Models.Entities
+namespace diligent_backend.Helpers
 {
     public class LawsuitForGet
     {
         public int Id { get; set; }
-
         public string date { get; set; }
         public string time { get; set; }
         public string location { get; set; }
@@ -19,7 +18,6 @@ namespace diligent_backend.Models.Entities
         public string plaintiff { get; set; }
         public string defendant { get; set; }
         public string note { get; set; }
-
         public string procedure_type { get; set; }
     }
 }

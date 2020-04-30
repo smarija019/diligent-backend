@@ -14,7 +14,6 @@ namespace diligent_backend.Controllers
     public class CompanyController : ControllerBase
     {
         readonly CompanyModel context;
-
         public CompanyController(CompanyModel context)
         {
             this.context = context;

@@ -9,10 +9,8 @@ using MySql.Data.MySqlClient;
 namespace diligent_backend.Models
 {
 
-
     public class RegistrationModel
     {
-
         public string ConnectionString { get; set; }
 
         public RegistrationModel(string connectionString)
@@ -47,7 +45,6 @@ namespace diligent_backend.Models
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("select * from users", conn);
-
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())

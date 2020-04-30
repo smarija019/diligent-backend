@@ -37,7 +37,6 @@ namespace diligent_backend.Controllers
         public async Task<IActionResult> Register([FromBody] UserApp credentials)
         {
             var user = new AppUser { FirstName = credentials.FirstName, LastName = credentials.LastName, Email = credentials.Email, UserName = credentials.Email, Role = credentials.Role };
-
             var result = await userManager.CreateAsync(user, credentials.Password);
 
             if (!result.Succeeded)
@@ -85,7 +84,6 @@ namespace diligent_backend.Controllers
         [Authorize(Roles = "admin,customer")]
         [Route("api/account/users")]
         [HttpGet]
-
         public IQueryable<AppUser> ListAllUsers()
         {
             return this.userManager.Users;

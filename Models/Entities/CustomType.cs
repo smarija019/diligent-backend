@@ -8,7 +8,6 @@ namespace diligent_backend.Models.Entities
     public class CustomType
     {
         public int Id { get; set; }
-
         public string type { get; set; }
     }
 }

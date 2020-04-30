@@ -35,6 +35,7 @@ namespace diligent_backend.Models
                 cmd.Parameters.Add("@note", MySqlDbType.VarChar).Value = lawsuit.note;
                 cmd.Parameters.Add("@procedure_type", MySqlDbType.VarChar).Value = lawsuit.procedure_type;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
         public List<LawsuitForGet> GetLawsuits()
@@ -52,6 +53,7 @@ namespace diligent_backend.Models
                         list.Add(new LawsuitForGet() { Id = Convert.ToInt32(reader["id"]), date = Convert.ToDateTime(reader["date"]).ToString("yyyy-MM-dd"), time = Convert.ToDateTime(reader["date"]).ToString("HH:mm:ss"), location = Convert.ToString(reader["lawsuit_location"]), judge = Convert.ToString(reader["law_judge"]),  inst_type= Convert.ToString(reader["inst_type"]), procedure_id = Convert.ToString(reader["procedure_id"]), courtroom = Convert.ToInt32(reader["courtroom"]), plaintiff = Convert.ToString(reader["law_plaintiff"]), defendant = Convert.ToString(reader["law_defendant"]), note = Convert.ToString(reader["note"]), procedure_type = Convert.ToString(reader["lawsuit_type"]) });
                     }
                 }
+                conn.Close();
             }
             return list;
         }
@@ -64,6 +66,7 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("delete from lawsuits where id=@id", conn);
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
 
         }
@@ -85,6 +88,7 @@ namespace diligent_backend.Models
                 cmd.Parameters.Add("@note", MySqlDbType.VarChar).Value = newLawsuit.note;
                 cmd.Parameters.Add("@procedure_type", MySqlDbType.VarChar).Value = newLawsuit.procedure_type;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
     }

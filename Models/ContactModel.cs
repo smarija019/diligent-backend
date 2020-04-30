@@ -34,6 +34,7 @@ namespace diligent_backend.Models
                 cmd.Parameters.Add("@profession", MySqlDbType.Int32).Value = contact.profession;
                 cmd.Parameters.Add("@company", MySqlDbType.VarChar).Value = contact.company;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
         public List<ContactForGet> GetContacts()
@@ -51,6 +52,7 @@ namespace diligent_backend.Models
                         list.Add(new ContactForGet() { Id = Convert.ToInt32(reader["id"]), name = Convert.ToString(reader["name"]), tel1 = Convert.ToString(reader["tel1"]), tel2 = Convert.ToString(reader["tel2"]), address = Convert.ToString(reader["address"]), email = Convert.ToString(reader["email"]), flag = Convert.ToInt32(reader["flag"]), profession = Convert.ToString(reader["profession"]), company = Convert.ToString(reader["companyOfUser"]) });
                     }
                 }
+                conn.Close();
             }
             return list;
         }
@@ -63,6 +65,7 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("delete from contacts where id=@id", conn);
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
 
         }
@@ -82,6 +85,7 @@ namespace diligent_backend.Models
                 cmd.Parameters.Add("@profession", MySqlDbType.Int32).Value = newContact.profession;
                 cmd.Parameters.Add("@company", MySqlDbType.VarChar).Value = newContact.company;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
 

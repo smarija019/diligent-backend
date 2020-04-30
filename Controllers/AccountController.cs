@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Amazon.Util.Internal.PlatformServices;
+using diligent_backend.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,22 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 namespace diligent_backend.Controllers
 {
     [ApiController]
-
-    public class UserApp
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-    }
-
-    public class LoginModel
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
-
     [Produces("application/json")]
     public class AccountController : Controller
     {
@@ -68,7 +53,7 @@ namespace diligent_backend.Controllers
 
         [Route("api/account/login")]
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
+        public async Task<IActionResult> Login([FromBody] UserLogin loginModel)
         {
             AppUser user = await userManager.FindByNameAsync(loginModel.Email);
             if (user != null && await userManager.CheckPasswordAsync(user, loginModel.Password))
@@ -97,7 +82,7 @@ namespace diligent_backend.Controllers
 
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,customer")]
         [Route("api/account/users")]
         [HttpGet]
 

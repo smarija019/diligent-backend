@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using diligent_backend.Helpers;
 
 namespace diligent_backend
 {
@@ -43,6 +44,7 @@ namespace diligent_backend
             services.Add(new ServiceDescriptor(typeof(ContactModel), new ContactModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(TypeModel), new TypeModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(LawsuitModel), new LawsuitModel(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(LawyerModel), new LawyerModel(Configuration.GetConnectionString("DefaultConnection"))));
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UserDbContext>();

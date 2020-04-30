@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using diligent_backend.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,7 @@ namespace diligent_backend.Controllers
 
             return new
             {
+                userId,
                 user.FirstName,
                 user.LastName,
                 user.UserName,
@@ -35,30 +37,6 @@ namespace diligent_backend.Controllers
   
             };
 
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "admin")]
-        [Route("ForAdmin")]
-        public string GetForAdmin()
-        {
-            return "Web method for Admin";
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "customer")]
-        [Route("ForCustomer")]
-        public string GetCustomer()
-        {
-            return "Web method for Customer";
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "admin,customer")]
-        [Route("ForAdminOrCustomer")]
-        public string GetForAdminOrCustomer()
-        {
-            return "Web method for Admin or Customer";
         }
 
     }

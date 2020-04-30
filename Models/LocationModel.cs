@@ -29,6 +29,7 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("insert into locations (location) values (@name)", conn);
                 cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = location.location;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
         public List<Location> GetLocations()
@@ -46,6 +47,7 @@ namespace diligent_backend.Models
                         list.Add(new Location() { Id = Convert.ToInt32(reader["id"]), location = Convert.ToString(reader["location"]) });
                     }
                 }
+                conn.Close();
             }
             return list;
         }
@@ -58,6 +60,7 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("delete from locations where id=@id", conn);
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
         public void UpdateLocation(int id, Location newLocation)
@@ -69,6 +72,7 @@ namespace diligent_backend.Models
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = newLocation.location;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
     }

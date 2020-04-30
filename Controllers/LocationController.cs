@@ -21,7 +21,7 @@ namespace diligent_backend.Controllers
             this.context = context;
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, customer")]
         [Route("api/location")]
         [HttpGet]
         public IEnumerable<Location> GetLocations()

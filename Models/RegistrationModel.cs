@@ -34,10 +34,10 @@ namespace diligent_backend.Models
                     cmd.Parameters.Add("@role", MySqlDbType.Int32).Value = user.role;
                     cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = user.password;
                     cmd.Parameters.Add("@username", MySqlDbType.VarChar).Value = user.username;
-
                     var num = cmd.ExecuteNonQuery();
+                    conn.Close();
 
-                }
+            }
             }
         public List<User> GetTest()
 
@@ -55,7 +55,8 @@ namespace diligent_backend.Models
                             list.Add(new User() { Id = Convert.ToInt32(reader["id"]) });
                         }
                     }
-                }
+                    conn.Close();
+            }
                 return list;
             }
     }

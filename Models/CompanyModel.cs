@@ -27,6 +27,7 @@ namespace diligent_backend.Models
                 cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = company.name;
                 cmd.Parameters.Add("@address", MySqlDbType.VarChar).Value = company.address;
                 var num = cmd.ExecuteNonQuery();
+                conn.Close();
 
             }
         }
@@ -46,6 +47,7 @@ namespace diligent_backend.Models
                         list.Add(new Company() { Id = Convert.ToInt32(reader["id"]), name = Convert.ToString(reader["name"]), address = Convert.ToString(reader["address"]) });
                     }
                 }
+                conn.Close();
             }
             return list;
         }
@@ -58,7 +60,7 @@ namespace diligent_backend.Models
                 MySqlCommand cmd = new MySqlCommand("delete from companies where id=@id", conn);
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
                 var num = cmd.ExecuteNonQuery();
-
+                conn.Close();
 
             }
 
@@ -70,10 +72,11 @@ namespace diligent_backend.Models
             {
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand("update companies set name=@name, address=@address where id=@id", conn);
-            cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
-            cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = newCompany.name;
-            cmd.Parameters.Add("@address", MySqlDbType.VarChar).Value = newCompany.address;
-            var num = cmd.ExecuteNonQuery();
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = newCompany.name;
+                cmd.Parameters.Add("@address", MySqlDbType.VarChar).Value = newCompany.address;
+                var num = cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
     }
